@@ -1,0 +1,158 @@
+﻿@model UserDto
+@{
+    ViewData["Title"] = "Home Page";
+    var loginTime = Model.LogineTime;
+}
+
+<style>
+    /* Adjust font size */
+    body {
+        font-size: 16px; /* Adjust font size as needed */
+    }
+
+    /* Additional styles for card titles */
+    .card-title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    /* Additional styles for card texts */
+    .card-text {
+        font-size: 18px;
+    }
+
+    /* Container for the charts */
+    .chart-container {
+        margin-top: 20px;
+    }
+
+    /* Style for the canvas */
+    canvas {
+        max-width: 100%;
+        height: auto;
+        width: 100%;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h3 class="font-weight-bold">@Model.DisplayName</h3>
+            <p>Your last login: @loginTime</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Number of Users</h5>
+                    <p class="card-text">5</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Number of Plants for Disease Detection</h5>
+                    <p class="card-text">14</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Number of Admins</h5>
+                    <p class="card-text">1</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container for the charts -->
+    <div class="row chart-container">
+        <!-- Pie chart for common plant diseases -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Common Plant Diseases</h4>
+                    <canvas id="plantDiseaseChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Histogram for increasing number of affected plants -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Number of Affected Plants Over Time</h4>
+                    <canvas id="affectedPlantsChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="~/css2/stylesheet_userindex.css" rel="stylesheet" />
+    <!-- Bootstrap JS and Chart.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.4/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Mock data for pie chart
+        var plantDiseaseData = {
+            labels: ['Powdery Mildew', 'Leaf Spot', 'Blight'],
+            datasets: [{
+                data: [30, 20, 50],
+                backgroundColor: ['#ff6384', '#36a2eb', '#ffce56']
+            }]
+        };
+
+        // Mock data for histogram
+        var affectedPlantsData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Affected Plants',
+                data: [100, 120, 140, 160, 180, 200],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Initialize pie chart
+        var plantDiseaseChart = new Chart(document.getElementById('plantDiseaseChart').getContext('2d'), {
+            type: 'pie',
+            data: plantDiseaseData,
+            options: {
+                responsive: true
+            }
+        });
+
+        // Initialize histogram
+        var affectedPlantsChart = new Chart(document.getElementById('affectedPlantsChart').getContext('2d'), {
+            type: 'bar',
+            data: affectedPlantsData,
+            options: {
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Date'
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of Affected Plants'
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+}
