@@ -18,6 +18,7 @@ namespace PlantifyApp.Core.Interfaces
 
         void Delete(T entity);
         public Task<IReadOnlyList<Posts>> GetAllPostsForSpecifcUser(string user_id);
+        public Task<IReadOnlyList<Plants>> GetAllPlantsDetailsForSpecifcUser(string user_id);
 
     }
 }

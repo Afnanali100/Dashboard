@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using PlantifyApp.Apis.Dtos;
 using PlantifyApp.Core.Models;
 using System.Net;
+using System.Numerics;
 using System.Xml.Linq;
 
 namespace PlantifyApp.Apis.Helpers
@@ -15,6 +16,7 @@ namespace PlantifyApp.Apis.Helpers
             CreateMap<Posts, PostDto>().ReverseMap();
             CreateMap<Comments, CommentDto>().ReverseMap();
             CreateMap<Likes, LikeDto>().ReverseMap();
+            CreateMap<Plants, PlantDto>().ReverseMap();
 
         }
     }
